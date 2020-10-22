@@ -21,7 +21,7 @@ const routes: Routes = [
   // { path: 'inputuser', component: InputUserComponent},
   // {path: 'user/:uid', component: DisplayUserDataComponent},
   {path:'card-user' , component:CardUserComponent,canActivate: [AuthGuard] },
-  {path:'home/suduko' , component:SudokuComponent},
+  {path:'home/suduko' , component:SudokuComponent,canActivate: [AuthGuard]},
   { path: 'register-user', component: SignUpComponent 
   // , canActivate: [SecureInnerPagesGuard]
 },

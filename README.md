@@ -28,3 +28,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ng serve --proxy-config proxy.conf.json
 
+
+
+ng build --output-path docs --base-href https://didi3762.github.io/consule_games/.
