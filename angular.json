@@ -22,9 +22,14 @@
             "assets": [
               "src/favicon.ico",
               "src/assets"
+              
             ],
             "styles": [
+              
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/font-awesome/css/font-awesome.css",
               "src/styles.css"
+              
             ],
             "scripts": []
           },
@@ -119,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "gameproj"
+    }
+  },
+  "defaultProject": "gameproj",
+  "cli": {
+    "analytics": "f14bac0f-d48d-4ea9-affb-0f7786ccc721"
+  }
 }

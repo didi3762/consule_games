@@ -1,0 +1,9 @@
+.home{
+    display: flex;
+    flex-direction: column;
+}
+
+.board{
+    display: flex;
+    justify-content: space-evenly;
+}

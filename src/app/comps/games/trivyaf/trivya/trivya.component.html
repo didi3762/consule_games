@@ -1,0 +1,17 @@
+<div  id=design >
+    <div id=rotatedBorder *ngFor="let x of wordsSV.wordsArr" Random (getRand)="wordsSV.addRand($event)"  [wordHeb]="x">
+      <span id="word" >
+          {{x}}
+        </span>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div *ngIf="current_game.cureent_sucusseful" class="alert alert-success">
+    <strong>מעולה!</strong> פתרת בהצלחה נוספה לך נקודה  
+  </div>
+  <div *ngIf="current_game.cureent_fail" class="alert alert-danger ">
+    <strong>חבל! </strong>לא הצלחת הפעם! ירדה לך נקודה נסה שוב בפעם הבאה
+  </div>
+  <!-- alert-dismissible fade show -->

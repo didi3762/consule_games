@@ -1,0 +1,15 @@
+.navbar{
+    /* height: 100%; */
+    margin: 0;
+}
+
+.navbar-text{
+    color: rgb(255, 196, 0);
+    font-size: 20px;
+    text-align: center;
+}
+.pp{
+    
+    height: 60px;
+    width: 60px;
+}

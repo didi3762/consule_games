@@ -1,0 +1,26 @@
+<table class="table table-bordered " >
+    <!-- <thead>
+      <tr ng-repeat="9">
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+      </tr>
+    </thead> -->
+    <tbody *ngFor="let x of sudoku_long;let e = index">
+      <tr >
+        
+        <td *ngFor="let y of x;let i = index" [ngClass]="{'table-primary':y.primary,'table-warning':y.updated}" (dblclick)="edit_cell(y.primary,y.updated,e,i)">
+          <input type="number" *ngIf="y.input" class="input-group" value="{{y.num}}" (keyup.enter)="onKey($event.target.value,e,i)" > 
+          <span *ngIf="!y.input">{{y.num}}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="button" class="btn btn-warning send-sudoku" (click)="submit_suodoku()">סיימתי</button>
+  <br>
+  <div *ngIf="success_slove" class="alert alert-success">
+    <strong>מעולה!</strong> פתרת בהצלחה נוספו לך 25 נקודות
+  </div>
+  <div *ngIf="fail_slove" class="alert alert-danger ">
+    <strong>חבל! </strong>לא הצלחת הפעם נסה שוב בפעם הבאה
+  </div>

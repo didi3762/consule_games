@@ -1,0 +1,57 @@
+#design {
+    position: relative; width: 300px; height: 50px;
+    margin: auto; margin-top: 100px; 
+    display: flex;   
+}
+
+#rotatedBorder {
+
+    display: flex;
+
+    /* position: absolute;  */
+    height: 100%; 
+    width: 100%;
+    box-sizing: border-box; 
+    border: 5px gray solid;
+    box-shadow: 0 0 10px #eb311f, inset 0 0 20px #eb311f;
+    text-align: center;
+    justify-content: center;
+}
+
+#header{
+    margin: auto;
+    font-size: 30px;
+    font-weight: bold;
+    color: brown;
+}
+#aBorder{
+
+    display: flex;
+    position: relative; width: 30px; height: 30px;
+    margin: auto; margin-top: 10px; 
+    text-align: center; 
+    justify-content: center;
+    
+}
+#sBorder{
+
+    margin: auto;
+    height: 100%; 
+    width: 100%;
+    box-sizing: border-box; 
+    border: 2px green solid;
+    border-radius: 50px;
+     box-shadow: 0 0 10px #4feb1f, inset 10px 10px 20px #6aeb1f; 
+    
+} 
+
+#circle{
+
+}
+
+#sum{
+    margin: auto;
+    font-size: 20px;
+    font-weight: bold;
+    color: green;
+}
