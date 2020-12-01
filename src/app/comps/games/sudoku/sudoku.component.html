@@ -1,15 +1,8 @@
 <table class="table table-bordered " >
-    <!-- <thead>
-      <tr ng-repeat="9">
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-      </tr>
-    </thead> -->
     <tbody *ngFor="let x of sudoku_long;let e = index">
       <tr >
         
-        <td *ngFor="let y of x;let i = index" [ngClass]="{'table-primary':y.primary,'table-warning':y.updated}" (dblclick)="edit_cell(y.primary,y.updated,e,i)">
+        <td *ngFor="let y of x;let i = index" [ngClass]="{'table-primary':y.primary,'table-warning':y.updated,'table-danger':y.wrong}" (dblclick)="edit_cell(y.primary,y.updated,e,i)">
           <input type="number" *ngIf="y.input" class="input-group" value="{{y.num}}" (keyup.enter)="onKey($event.target.value,e,i)" > 
           <span *ngIf="!y.input">{{y.num}}</span>
         </td>

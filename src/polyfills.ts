@@ -56,6 +56,9 @@ import '@angular/localize/init';
  *
  */
 
+ // Add global to window, assigning the value of window itself.
+(window as any).global = window;
+
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  * 

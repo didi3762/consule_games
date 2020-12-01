@@ -1,36 +1,63 @@
 
-  <div class="bodylogin"><div class="container">
+  <div class="bodylogin">
+    <div class="container">
     <div class="d-flex justify-content-center h-100">
       <div class="card">
         <div class="card-header">
           <h3>הרשמה</h3>
           <div class="d-flex justify-content-end social_icon">
-            <span><i class="fab fa-facebook-square" (click)="authService.FacebookAuth()"></i></span>
-            <span><i class="fab fa-google-plus-square" (click)="authService.GoogleAuth()"></i></span>
-            <span><i class="fab fa-twitter-square"></i></span>
+            <span><i class="fa fa-facebook-square" (click)="authService.FacebookAuth()"></i></span>
+            <span><i class="fa fa-google-plus-square" (click)="authService.GoogleAuth()"></i></span>
+            <span><i class="fa fa-twitter-square"></i></span>
           </div>
         </div>
         <div class="card-body">
             <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-                <div class="input-group form-group" [ngClass]="{ 'has-error': invalidFirstName() }">
+                <div class="input-group form-group" [ngClass]="{ 'has-error': invalidFulltName() }">
                     <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
                     </div>
-                    <input type="text" formControlName="first_name" class="form-control" placeholder="שם משתמש" #userName>
-                    <p *ngIf="invalidFirstName()" id="first_name_error" class="help-block">{{this.serviceErrors.first_name || 'Invalid first name.'}}</p>
+                    <input type="text" formControlName="full_name" class="form-control" placeholder="שם מלא" #userName>
+                    
                     
                 </div>
+                <p *ngIf="invalidFulltName()" id="full_name_error" class="text-danger">{{this.serviceErrors.first_name || this.message_erros['full_name_erros']}}</p>
+                <div class="input-group form-group" [ngClass]="{ 'is-invalid': invalidUserName() }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input type="text" formControlName="user_name" class="form-control" placeholder="שם משתמש" #userName>
+               </div>
+               <p *ngIf="invalidUserName()" id="user_name_error" class="text-danger">{{this.serviceErrors.first_name || this.message_erros['user_name_erros']}}</p>
+                <div class="input-group form-group" [ngClass]="{ 'has-error': invalidEmail() }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-paper-plane"></i></span>
+                    </div>
+                    <input type="text" formControlName="email" class="form-control" placeholder="דואר אלקטרוני" #userName>
+                    
+                    
+                </div>
+                <p *ngIf="invalidEmail()" id="first_name_error" class="text-danger">{{this.serviceErrors.first_name || this.message_erros['email_erros']}}</p>
                 <div class="input-group form-group" [ngClass]="{ 'has-error': invalidPassword() }">
                     <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        <span class="input-group-text"><i class="fa fa-key"></i></span>
                     </div>
                     <input type="password" class="form-control" formControlName="password" placeholder="סיסמא" #userPassword>
-                    <p *ngIf="invalidPassword()" id="password_error" class="help-block">{{this.serviceErrors.password || 'Invalid password.'}}</p>
+                    
                 </div>
+                <p *ngIf="invalidPassword()" id="password_error" class="text-danger">{{this.serviceErrors.password || this.message_erros['password_erros']}}</p>
+                <div class="input-group form-group " [ngClass]="{ 'has-error': invalidConfPassword() }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-key"></i><i class="fa fa-check"></i></span>
+                    </div>
+                    <input type="password" class="form-control" formControlName="conf_password" placeholder="אימות סיסמא" #confPassword>
+                    
+                </div>
+                <p *ngIf="invalidConfPassword()" id="password_error" class="text-danger">{{this.serviceErrors.password || this.message_erros['conf_pass_erros']}}</p>
                 <div class="row align-items-center remember">
                     <input type="checkbox">זכור אותי
                 </div>
-                <div class="form-group">
+                <div class="form-group has-error">
                     <input type="submit" value="שמור" class="btn float-right login_btn">
                 </div>
             </form>

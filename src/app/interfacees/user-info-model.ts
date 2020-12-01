@@ -1,3 +1,5 @@
+import { Score } from './game';
+
 export class UserInfoModel {
     guid: string;
 	customerUid: string;
@@ -10,9 +12,7 @@ export class UserInfoModel {
 
 	password: string;
 	pothoUrl:string;
-		sudoko_score;
-		trivya_score;
-		currenr_score;
+	scores:Score[]
 		sum_score;
 	
 

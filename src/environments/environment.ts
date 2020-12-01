@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: true,
+  production: false,
+  // SOCKET_ENDPOINT: 'http://localhost:3000',
   firebase: {
       apiKey: "AIzaSyBu7Yu-Go7W3zYjxyYnzQmkRUfj-8mW9MM",
       authDomain: "gameproj-52368.firebaseapp.com",

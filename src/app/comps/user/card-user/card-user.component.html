@@ -4,31 +4,31 @@
         <div class="img">
             <img src="{{(user.pothoUrl) ? user.pothoUrl : 'assets/img/TL18TV7R6-UL1DXHD6Z-gdf2e191070b-512.png'}}">
         </div>
-        <h2>{{user.first_name}}<br><span class="navbar-text"><i class="fas fa-trophy"></i>{{user.sum_score}}</span></h2>
-        <h3>שיחקת ב: 5 משחקים</h3>
-        <div class="row"> <!-- E-mail -->
-            <label class="col-xs-6 col-form-label">: טריווה</label>
-            <div class="col-xs-6">{{user.trivya_score}}</div>
+        <h2>{{user.first_name}}<br><span class="navbar-text"><i class="fa fa-trophy"></i>{{user.sum_score}}</span></h2>
+        <h3>שיחקת ב: {{user.scores.length}} משחקים</h3>
+        <div class="row" *ngFor="let game of user.games"> <!-- E-mail -->
+            <label class="col-xs-6 col-form-label">: {{game.name}}</label>
+            <div class="col-xs-6">{{game.user_score}}</div>
         </div>
     
-        <div class="row"> <!-- Zip Code -->
+        <!-- <div class="row"> 
             <label class="col-xs-6 col-form-label">: סודוקו</label>
             <div class="col-xs-6">{{user.sudoko_score}}</div>
-        </div>
+        </div> -->
     
         <div class="row"> <!-- Password -->
             <label class="col-xs-6 col-form-label">סה"כ :</label>
             <div class="col-xs-6">{{user.sum_score}}</div>
         </div>
-        <span>
+        <!-- <span>
             <ul>
-                <li><a href="#"><i class="fab fa-facebook" aria-hidden="true" ></i></a></li>
-                <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                <li><a href="#"><i class="fab fa-google-plus" aria-hidden="true"></i></a></li>
-                <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-                <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true" ></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
             </ul>
-        </span>
+        </span> -->
     </div>
 </div>
 </div>

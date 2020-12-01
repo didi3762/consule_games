@@ -1,0 +1,29 @@
+<div class="cntr" ng-controller="CardController">
+		<div class="timer {{isCritical ? 'critical' : ''}}">
+            {{timeLimit | date: 'm:ss'}} 
+        </div>
+        <div id=aBorder>
+            <div id=sBorder>
+                <span id="sum">{{numPairs}}</span>
+            </div>	
+        </div>
+        
+		<table class="table-top">
+			<tr *ngFor="let row of deck.rows">
+				<td *ngFor="let card of row">
+					<div class="card_container {{!card['isFaceUp'] ? '' : 'flip'}}" (click)="isGuarding || check(card)" >
+						<div class="card shadow">
+							<div class="front face"></div>
+							<div class="back face text-center pagination-center">
+								<p> {{card['item']}} </p>
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<div class="startbtn">
+			<button type="button" class="btn btn-default btn-lg" [disabled]="inGame == true" (click)="start()">Start</button>
+		</div>
+
+	</div>

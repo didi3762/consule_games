@@ -1,0 +1,23 @@
+<div class="table-responsive bg-light">
+    <table class="table"
+     *ngFor = "let user of this.users_list">
+     
+        <tr>
+            <th>שם</th>
+            <th>סך נקודות</th>
+            <th>טרוייה</th>
+            <th>טטריס</th>
+            <th>ס'נייק</th>
+            <th>נקודות בונוס</th>
+            <th>תמונה</th>
+        </tr>
+        <tr>
+            <td>{{user.name}}</td>
+            <td>{{user.sum_score}}</td>
+            <td>{{user.sum_score}}</td>
+            <td>{{user.sum_score}}</td>
+            <td>{{user.sum_score}}</td>
+            <td><img src="http://localhost:3000/games/image/image(7)cdf820b9-fdbd-4171-8a0b-d3e6de3cca8f.png" alt=""></td>
+        </tr>
+    </table>
+</div>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SignService } from 'src/app/servicees/sign.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { TrivyaSvcService } from 'src/app/servicees/trivya-svc.service';
+import { GameService } from '../../servicees/game.service';
 
 @Component({
   selector: 'my-navbar',
@@ -9,6 +10,8 @@ import { TrivyaSvcService } from 'src/app/servicees/trivya-svc.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+
+  
 
   navbarOpen = false;
   registeredOb:Observable<any>;
@@ -22,14 +25,14 @@ export class NavbarComponent implements OnInit {
     this.navbarOpen = !this.navbarOpen;
   }
 
-  constructor(public signSvc:SignService,public triSvc:TrivyaSvcService) {
+  constructor(public signSvc:SignService,private gameSvc:GameService) {
 
     
    }
 
   ngOnInit(): void {
 
-this.signSvc.registeredBh.subscribe( res => {
+   this.signSvc.registeredBh.subscribe( res => {
       console.log(res);
       
       this.registered = res
@@ -49,6 +52,18 @@ this.signSvc.registeredBh.subscribe( res => {
       
   })
     
+  }
+
+
+  onSubmit(v){
+    console.log('submited',v.search);
+    
+    
+  }
+
+  search(value){
+      console.log(value);
+      this.gameSvc.search(value)
   }
 
 }

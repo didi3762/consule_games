@@ -4,28 +4,27 @@
 			<div class="card-header">
 				<h3>כניסה</h3>
 				<div class="d-flex justify-content-end social_icon">
-					<span><i class="fab fa-facebook-square"></i></span>
-					<span><i class="fab fa-google-plus-square" (click)="authService.GoogleAuth()"></i></span>
-					<span><i class="fab fa-twitter-square"></i></span>
+					<span><i class="fa fa-facebook-square"></i></span>
+					<span><i class="fa fa-google-plus-square" (click)="authService.GoogleAuth()"></i></span>
+					<span><i class="fa fa-twitter-square"></i></span>
 				</div>
 			</div>
 			<div class="card-body">
 				<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-					<div class="input-group form-group" [ngClass]="{ 'has-error': invalidFirstName() }">
+					<div class="input-group form-group" [ngClass]="{ 'has-error': invalidEmail() }">
 						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
+							<span class="input-group-text"><i class="fa fa-paper-plane"></i></span>
 						</div>
-						<input type="text" formControlName="first_name" class="form-control" placeholder="שם משתמש" #userName>
-						<p *ngIf="invalidFirstName()" id="first_name_error" class="help-block">{{this.serviceErrors.first_name || 'Invalid first name.'}}</p>
-						
+						<input type="text" formControlName="email" class="form-control" placeholder="דואר אלקטרוני" #userName>
 					</div>
+					<p *ngIf="invalidEmail()" id="first_name_error" class="text-danger">{{this.serviceErrors.first_name || this.message_erros['email_erros']}}</p>
 					<div class="input-group form-group" [ngClass]="{ 'has-error': invalidPassword() }">
 						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i></span>
+							<span class="input-group-text"><i class="fa fa-key"></i></span>
 						</div>
 						<input type="password" class="form-control" formControlName="password" placeholder="סיסמא" #userPassword>
-						<p *ngIf="invalidPassword()" id="password_error" class="help-block">{{this.serviceErrors.password || 'Invalid password.'}}</p>
 					</div>
+					<p *ngIf="invalidPassword()" id="password_error" class="text-danger">{{this.serviceErrors.password || this.message_erros['password_erros']}}</p>
 					<div class="row align-items-center remember">
 						<input type="checkbox">זכור אותי
 					</div>

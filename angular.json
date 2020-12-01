@@ -27,11 +27,12 @@
             "styles": [
               
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/font-awesome/css/font-awesome.css",
               "src/styles.css"
               
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -67,7 +68,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "gameproj:build"
+            "browserTarget": "gameproj:build",
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {

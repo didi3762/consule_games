@@ -1,9 +1,10 @@
 /* @import url('https://fonts.googleapis.com/css?family=Numans'); */
 .body-card {
-    margin:0;
-    padding:0;
+    background-size: cover;
+    background-repeat: no-repeat; 
+    height: 100vh;
+    background-image: url('src/assets/img/photo-1569517282132-25d22f4573e6.jpg');
     font-family:sans-serif;
-    background:#fbfbfb;
 }
 .card {
     position:absolute;

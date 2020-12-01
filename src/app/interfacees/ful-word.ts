@@ -37,7 +37,11 @@ export class CureentGame {
 export class Cell {
     primary:boolean;
     num;
-     updated:boolean
-     input:boolean
+    col:number;
+    row:number;
+     updated:boolean;
+     input:boolean;
+     reg:number;
+     wrong:boolean;
 
  }

@@ -24,7 +24,7 @@ export class UsersListComponent implements OnInit {
     this.usersListOb = this.signSvc.users_list
     this.usersListOb.subscribe(res=>{
       this.usersList = res;
-      console.log( this.usersList.users[0]);
+      console.log( this.usersList);
       
       
     });

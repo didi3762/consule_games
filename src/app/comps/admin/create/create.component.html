@@ -1,0 +1,49 @@
+
+  <div class="bodylogin">
+    <div class="container">
+    <div class="d-flex justify-content-center h-100">
+      <div class="card">
+        <div class="card-header">
+          <h3>הוספת משחק חדש</h3>
+        </div>
+        <div class="card-body">
+          <button type="submit" (click)="loadFile()">הוסף תמונה</button>
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                <div class="input-group form-group" [ngClass]="{ 'has-error': invalidFulltName() }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input type="text" formControlName="name" class="form-control" placeholder="שם" #userName>
+                    
+                    
+                </div>
+                <p *ngIf="invalidFulltName()" id="full_name_error" class="text-danger">{{this.serviceErrors.first_name || this.message_erros['full_name_erros']}}</p>
+                <div class="input-group form-group" [ngClass]="{ 'is-invalid': invalidUserName() }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input type="text" formControlName="description" class="form-control" placeholder="תיאור" #userName>
+               </div>
+               <p *ngIf="invalidUserName()" id="user_name_error" class="text-danger">{{this.serviceErrors.first_name || this.message_erros['description_erros']}}</p>
+                <div class="input-group form-group" [ngClass]="{ 'is-invalid': invalidUrl() }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-html5"></i></span>
+                    </div>
+                    <input type="text" formControlName="html_url" class="form-control" placeholder="כתובת HTML" #userName>
+               </div>
+               <p *ngIf="invalidUrl()" id="user_name_error" class="text-danger">{{this.serviceErrors.first_name || this.message_erros['html_url_erros']}}</p>
+
+               <input type="file" #fileUpload  name="fileUpload" accept="image/*" style="display: none;">
+               <p *ngIf="invalidUrl()" id="user_name_error" class="text-danger">{{this.serviceErrors.first_name || this.message_erros['loat_image_erros']}}</p>
+               
+
+               <div class="form-group has-error">
+                <input type="submit" value="שמור" class="btn float-right login_btn">
+                </div>
+               
+            </form>
+        </div>
+    </div>
+  </div>
+  </div> 
+

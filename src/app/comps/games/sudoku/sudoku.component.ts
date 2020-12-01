@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SudokuService } from 'src/app/servicees/sudoku.service';
 
 @Component({
-  selector: 'app-sudoku',
+  selector: 'sudoku-table',
   templateUrl: './sudoku.component.html',
   styleUrls: ['./sudoku.component.css']
 })
@@ -18,6 +18,7 @@ export class SudokuComponent implements OnInit {
   constructor(public sudosSV:SudokuService) { }
 
   ngOnInit(): void {
+
     this.sudosSV.current_game_bh.subscribe(res=>{
       this.updated = res.updated
       this.sudoku_long = res

@@ -3,6 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { FulWord, Word, CureentGame } from '../interfacees/ful-word';
 import { HttpClient } from '@angular/common/http';
 import { SignService } from './sign.service';
+import { Score } from '../interfacees/game';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,21 @@ export class TrivyaSvcService {
   current_user;
   current_game:CureentGame= new CureentGame();
   current_game_bh = new BehaviorSubject<any>(this.current_game);
+  trivya_game = new Score({game_name:'טרוייה',user_score:0})
 
   constructor(private myHttp:HttpClient, public signSvc: SignService) { 
 
     this.current_user =  JSON.parse(localStorage.getItem('user'));
+    let find = this.current_user.scores.find(el => el.game_name == this.trivya_game.game_name)
+    console.log(this.current_user);
+    
+    if (find) {
+      console.log("continue")
+    }else{
+      console.log('push');
+      this.current_user.scores.push(this.trivya_game)
+      localStorage.setItem('user', JSON.stringify(this.current_user));
+    }
     
 
     console.log(this.wordsArr,this.randArr,this.HebWords);
@@ -91,7 +103,7 @@ export class TrivyaSvcService {
       this.cureent_sum = -1
     }
     this.wordEng = this.englishWords[event[0]]
-     this.signSvc.updateSum(this.cureent_sum) 
+     this.signSvc.updateSum(this.cureent_sum,this.trivya_game.game_name) 
      this.current_game.cureent_sum = this.sum;
      this.current_game.cureent_word = this.wordEng;
      this.current_game.cureent_sucusseful = this.succussful;

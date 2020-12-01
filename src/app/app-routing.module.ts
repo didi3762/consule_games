@@ -8,23 +8,43 @@ import { UsersListComponent } from './comps/user/users-list/users-list.component
 import { CardUserComponent } from './comps/user/card-user/card-user.component';
 import { SignUpComponent } from './comps/user/sign-up/sign-up.component';
 import { AuthGuard } from './shared/guard/auth.guard';
+import { SudokuCellComponent } from './comps/games/sudoku/sudoku-cell/sudoku-cell.component';
+import { AdminComponent } from './comps/admin/admin.component';
+import { CreateComponent } from './comps/admin/create/create.component';
+import { SocketioComponent } from './comps/games/socketio/socketio.component';
+import { TetrisComponent } from './comps/games/tetris/tetris.component';
+import { MemoryGameComponent } from './comps/games/memory-game/memory-game.component';
+import { SnakeComponent } from './comps/games/snake/snake.component';
+import { AdminGuard } from './shared/guard/admin.guard';
+import { GamesComponent } from './comps/admin/games/games.component';
+import { ListComponent } from './comps/admin/list/list.component';
 
 
 const routes: Routes = [
   {path:'home' , component:HomeComponent},
   // {path:'home/game-page' , component:GameComponent},
-  {path:'trivya' , component:MainTrivyaComponent , canActivate: [AuthGuard]},
+  {path:'html_url' , component:MainTrivyaComponent , canActivate: [AuthGuard]},
   {path:'home/users' , component:UsersListComponent},
+  {path:'admin' , component:AdminComponent, canActivate: [AuthGuard,AdminGuard],
+  children: [
+    {path:'admin/create' , component:CreateComponent},
+    {path:'games' , component:GamesComponent},
+    {path:'users' , component:ListComponent},
+  ]},
   {path:'sign' , component:SignComponent
   //  ,canActivate: [SecureInnerPagesGuard]
   },
   // { path: 'inputuser', component: InputUserComponent},
-  // {path: 'user/:uid', component: DisplayUserDataComponent},
+  {path: 'tetris', component: TetrisComponent,canActivate: [AuthGuard]},
+  {path: 'memory', component: MemoryGameComponent,canActivate: [AuthGuard]},
+  {path: 'snake', component: SnakeComponent,canActivate: [AuthGuard]},
   {path:'card-user' , component:CardUserComponent,canActivate: [AuthGuard] },
-  {path:'home/suduko' , component:SudokuComponent,canActivate: [AuthGuard]},
+  {path:'home/suduko' , component:SudokuCellComponent,canActivate: [AuthGuard]},
   { path: 'register-user', component: SignUpComponent 
   // , canActivate: [SecureInnerPagesGuard]
 },
+
+
   // { path: 'dashboard', component: DashboardComponent
   //  , canActivate: [AuthGuard] 
   // },

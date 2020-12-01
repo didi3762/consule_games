@@ -28,6 +28,7 @@ export class CardUserComponent implements OnInit {
 
   private subscriber: any;
 
+
   constructor(private http: HttpClient, private route: ActivatedRoute,public signSvc:SignService) { }
 
   ngOnInit(): void {
@@ -36,13 +37,6 @@ export class CardUserComponent implements OnInit {
 
     console.log(this.user_game);
     
-
-  //   this.subscriber = this.route.params.subscribe(params => {
-
-  //     console.log(params);
-      
-  //     this.signSvc.defUser(params)
-  //  });
   }
 
 }

@@ -1,0 +1,28 @@
+<div class="table-responsive bg-light">
+    <table class="table" >
+     
+        <tr>
+            <th>משחק</th>
+            <th>הוראות</th>
+            <th>תמונה</th>
+            <!-- <th>lorem</th>
+            <th>ipssum</th>
+            <th>Dollor</th> -->
+        </tr>
+        <tr *ngFor = "let game of this.game_list">
+            <td>{{game.name}}</td>
+            <td>{{game.description}}</td>
+            <!-- <td>lorem ipssum dollor dummy</td>
+            <td>lorem ipssum dollor dummy</td>
+            <td>lorem ipssum dollor dummy</td> -->
+            <td>
+                <div class='cel_image'>
+                    <img src="http://localhost:3000/games/image/{{game.photo_url}}" alt="" class="img-fluid mx-auto d-block">
+                </div>
+            </td>
+            <td><button (click)='delate_item(game.id)'><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
+            
+        </tr>
+    </table>
+</div>
+

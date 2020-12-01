@@ -21,7 +21,6 @@ export class TrivyaComponent implements OnInit {
     // this.current_user =  JSON.parse(localStorage.getItem('user'));
     this.wordsSV.current_game_bh.subscribe(res=>{
       this.current_game = res
-      console.log(this.current_game);
       
   })
   }
