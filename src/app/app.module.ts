@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import  * as io from "socket.io-client";
+
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { NgbModule, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';

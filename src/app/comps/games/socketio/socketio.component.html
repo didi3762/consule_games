@@ -1,42 +1,29 @@
-<canvas
-    #game
-    width='640'
-    height="480"
-    style='border: 1px solid black'>
-</canvas>
-<p>
-    <button (click)='move("Right")'>Right</button>
-    <button (click)='move("Left")'>Left</button>
-    <button (click)='move("Up")'>Up</button>
-    <button (click)='move("Down")'>Down</button>
-</p>
-
-
-<div id="app" class="container">
-    <div class="row">
-        <div class="col-md-6 offset-md-3 col-sm-12">
-            <h1 class="text-center"></h1>
-            <br>
-            <div id="status"></div>
-            <div id="chat">
-                <input type="text" v-model="name" id="username" class="form-control" placeholder="Enter name...">
-                <br>
-                <div class="card">
-                    <div id="messages" class="card-block">
-                        <ul>
-                            <li v-for="message of messages">
-                                <!-- {{ message.name }}: {{ message.text }} -->
-                            </li>
-                        </ul>
+<div class="cntr" ng-controller="CardController">
+    <div class="timer {{isCritical ? 'critical' : ''}}">
+        {{timeLimit | date: 'm:ss'}} 
+    </div>
+    <div id=aBorder>
+        <div id=sBorder>
+            <span id="sum">{{numPairs}}</span>
+        </div>	
+    </div>
+    
+    <table class="table-top">
+        <tr *ngFor="let row of deck.rows; let i = index">
+            <td *ngFor="let card of row; let j = index">
+                <div class="card_container {{!card['isFaceUp'] ? '' : 'flip'}}" (click)="isGuarding || emit_card({a:i,b:j})" >
+                    <div class="card shadow">
+                        <div class="front face"></div>
+                        <div class="back face text-center pagination-center">
+                            <p> {{card['item']}} </p>
+                        </div>
                     </div>
                 </div>
-                <br>
-                <textarea id="textarea" class="form-control" v-model="text" placeholder="Enter message..."></textarea>
-                <br>
-                <button id="send" class="btn"
-                 
-                 >Send</button>
-            </div>
-        </div>
+            </td>
+        </tr>
+    </table>
+    <div class="startbtn">
+        <button type="button" class="btn btn-default btn-lg" [disabled]="inGame == true" (click)="emit_start()">Start</button>
     </div>
+
 </div>

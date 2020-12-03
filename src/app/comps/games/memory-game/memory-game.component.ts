@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { SignService } from '../../../servicees/sign.service';
+import { SocketioService } from '../../../servicees/socketio.service';
+import  * as io from "socket.io-client";
 
 @Component({
-  selector: 'app-memory-game',
+  selector: 'memory-game',
   templateUrl: './memory-game.component.html',
   styleUrls: ['./memory-game.component.css']
 })
 export class MemoryGameComponent implements OnInit {
 
-  constructor(private signSvc:SignService) { }
+  constructor(private signSvc:SignService,private socketsvc:SocketioService) { }
 
   deck
 
   ngOnInit(): void {
 
     this.deck = this.createDeck()
-    this.isGuarding = false;
-    console.log(this.deck);
+    this.isGuarding = true;
     
   }
 
@@ -132,13 +133,13 @@ previousCard = null;
 numPairs = 0;
 
 
-check = function(card) {
+check(card) {
   if (this.currentSessionOpen && this.previousCard != card && this.previousCard.item == card.item && !card.isFaceUp) {
     card.isFaceUp = true;
     this.previousCard = null;
     this.currentSessionOpen = false;
     this.numPairs++;
-    this.signSvc.updateSum(this.numPairs) 
+    this.signSvc.updateSum(this.numPairs,'זכרון') 
   } else if(this.currentSessionOpen && this.previousCard != card && this.previousCard.item != card.item && !card.isFaceUp) {
     this.isGuarding = true;
     card.isFaceUp = true;

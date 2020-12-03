@@ -902,7 +902,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
   /***/
   function node_modulesAngularLocalizeFesm2015InitJs(module, exports) {
     /**
-     * @license Angular v10.1.6
+     * @license Angular v10.2.3
      * (c) 2010-2020 Google LLC. https://angular.io/
      * License: MIT
      */
@@ -19114,7 +19114,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
      *  (window as any).__Zone_enable_cross_context_check = true;
      *
      */
+    // Add global to window, assigning the value of window itself.
 
+
+    window.global = window;
     /***************************************************************************************************
      * Zone JS is required by default for Angular itself.
      *
@@ -19127,7 +19130,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
      */
 
     /***/
-
   },
 
   /***/

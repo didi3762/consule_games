@@ -1,4 +1,5 @@
 {
+  "esModuleInterop": false,
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",

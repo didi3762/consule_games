@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { NgbCarouselConfig, NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { GameService } from '../../servicees/game.service';
 
@@ -11,8 +11,10 @@ import { GameService } from '../../servicees/game.service';
 })
 export class CaruselaComponent implements OnInit {
 
+  @ViewChild('myCarousel') myCarousel: NgbCarouselConfig;
+
   game_list_ob:Observable<any>;
-  game_list:any;
+  game_list:any = [];
   api_url:string = 'http://localhost:3000/games/image/';
   num_arr:number
   game_list_duble=[]
@@ -20,6 +22,7 @@ export class CaruselaComponent implements OnInit {
   images = [700, 800, 807].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
   constructor(config: NgbCarouselConfig,public gameSvc:GameService) { 
+    
     config.interval = 20000;
     config.keyboard = true;
     config.pauseOnHover = true;
@@ -28,8 +31,8 @@ export class CaruselaComponent implements OnInit {
     this.game_list_ob = this.gameSvc.games_list
     this.game_list_ob
     .subscribe(res=>{
-      console.log(res);
-      
+    
+    
       this.game_list = res;
       let k = 0
       let game_b = []

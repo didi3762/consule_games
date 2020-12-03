@@ -25,7 +25,8 @@ const routes: Routes = [
   // {path:'home/game-page' , component:GameComponent},
   {path:'html_url' , component:MainTrivyaComponent , canActivate: [AuthGuard]},
   {path:'home/users' , component:UsersListComponent},
-  {path:'admin' , component:AdminComponent, canActivate: [AuthGuard,AdminGuard],
+  {path:'admin' , component:AdminComponent,
+  //  canActivate: [AuthGuard,AdminGuard],
   children: [
     {path:'admin/create' , component:CreateComponent},
     {path:'games' , component:GamesComponent},
@@ -40,6 +41,7 @@ const routes: Routes = [
   {path: 'snake', component: SnakeComponent,canActivate: [AuthGuard]},
   {path:'card-user' , component:CardUserComponent,canActivate: [AuthGuard] },
   {path:'home/suduko' , component:SudokuCellComponent,canActivate: [AuthGuard]},
+  {path:'socket' , component:SocketioComponent,canActivate: [AuthGuard]},
   { path: 'register-user', component: SignUpComponent 
   // , canActivate: [SecureInnerPagesGuard]
 },

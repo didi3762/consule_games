@@ -1,11 +1,11 @@
 
-<div id="carousel-with-lb" class="carousel slide carousel-multi-item mr-auto" data-ride="carousel">
+<div id="myCarousel" class="carousel slide carousel-multi-item mr-auto" data-ride="carousel">
 
     <!--Controls-->
     <div class="controls-top text-center">
-      <a class="btn-floating btn-secondary" href="#carousel-with-lb" data-slide="prev"><i
+      <a class="btn-floating btn-secondary" href="#myCarousel" data-slide="prev"><i
           class="fa fa-chevron-left"></i></a>
-      <a class="btn-floating btn-secondary" href="#carousel-with-lb" data-slide="next"><i
+      <a class="btn-floating btn-secondary" href="#myCarousel" data-slide="next"><i
           class="fa fa-chevron-right"></i></a>
     </div>
     <!--/.Controls-->
@@ -13,7 +13,7 @@
     <!--Indicators-->
     <ol class="carousel-indicators">
       <ng-container *ngFor="let game of this.game_list_duble?.slice(0, 3) ; let i = index">
-      <li data-target="#carousel-with-lb" attr.data-slide-to="{{i}}" class="secondary-color" [ngClass]="{'active' : i == 0}"></li>
+      <li  data-target="#myCarousel" attr.data-slide-to="{{i}}" class="secondary-color" [ngClass]="{'active' : i == 0}"></li>
     </ng-container>
       <!-- <li data-target="#carousel-with-lb" data-slide-to="1" class="secondary-color"></li>
       <li data-target="#carousel-with-lb" data-slide-to="2" class="secondary-color"></li> -->

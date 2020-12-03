@@ -8,7 +8,7 @@ import  * as io from "socket.io-client";
 export class SocketioService {
 
   private context: any;
-  private socket: any;
+  public socket: any;
 
   messages: Subject<any>;
 
@@ -21,30 +21,23 @@ export class SocketioService {
   }
 
   ngOnInit(): void {
-//       if (!this.socket) {
-//     this.socket = io("http://localhost:3001", {
-//       reconnection: false
-//   })
-// }
+      this.created()
   }
 
 
   ngAfterViewInit(): void {
-    // this.context = this.gameCanvas.nativeElement.getContext('2d');
-    // this.context.fillRect(20, 20, 20, 20);
-    
-    
-    // this.socket.on('position', position=> {
-    //   this.context.clearRect(
-    //     0,
-    //     0,
-    //     this.gameCanvas.nativeElement.width,
-    //     this.gameCanvas.nativeElement.height,
-    //   )
-    //   this.context.fillRect(position.x ,position.y,20,20);
-    // })
+   
     
   }
+
+  created() {
+    this.socket = io('http://localhost:3001')
+    this.socket.on('msgToClient', (message) => {
+      console.log(message);
+      
+    //  this.receivedMessage(message)
+    })
+   }
 
   async move( direction: string){
     // console.log(this.socket.emit());

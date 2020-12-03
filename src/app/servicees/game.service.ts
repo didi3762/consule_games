@@ -175,7 +175,7 @@ export class GameService {
       })
   }
 
-  search(value){
+  async search(value){
     this.searc_list.next(value);
     this.getGamesSearc()
   }
@@ -183,7 +183,6 @@ export class GameService {
 
   getGamesSearc() {
     const obsNoCharacters = of<Game[]>([]);
-    this.rout.navigate(['*']);
     this.games = this.searc_list
     this.games.subscribe(res=>{
       this.getGamesByS(res)

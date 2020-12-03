@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SignService } from 'src/app/servicees/sign.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, config } from 'rxjs';
 import { TrivyaSvcService } from 'src/app/servicees/trivya-svc.service';
 import { GameService } from '../../servicees/game.service';
 
@@ -61,8 +61,12 @@ export class NavbarComponent implements OnInit {
     
   }
 
-  search(value){
-      console.log(value);
+   search(value){
+    if (value.length<=1) {
+      console.log(value.length);
+     
+      
+    }
       this.gameSvc.search(value)
   }
 

@@ -15,9 +15,11 @@
           </li>
       
           <li class="nav-item">
-            <a class="nav-link" href="home/users">חדר משחקים</a>
+            <a class="nav-link" href="/socket">חדר משחקים</a>
           </li>
-          <li *ngIf='corrent_user.role=="admin"' class="nav-item">
+          <li class="nav-item">
+           <!-- *ngIf='corrent_user.role=="admin"' -->
+            
             <a class="nav-link" href="admin">ממשק ניהול</a>
           </li>
         </ul>
@@ -26,7 +28,6 @@
           <form #searchform="ngForm" class="form-search form-horizontal pull-right" (ngSubmit)="onSubmit(searchform)">
               <div class="input-append span12">
                   <input type="text" class="form-control search-query mac-style" name="search" placeholder="Search" #searchBox (keyup)="search(searchBox.value)">
-                  <button type="submit" class="btn"><i class="fa fa-search"></i></button>
               </div>
           </form>
       </div>
@@ -44,6 +45,7 @@
             <a class="dropdown-item waves-light"  href="/card-user">הפרופיל שלי</a>
           </div>
           <!-- <span class="clearfix d-none d-sm-inline-block">0</span> -->
+          <span *ngIf="registered" class="navbar-text" >{{corrent_user.user_name}}</span>
           <span class="navbar-text" ><i class="fa fa-trophy"></i> {{corrent_user.sum_score}}</span>
           <a *ngIf="!registered"  class="navbar-text"  href="/sign">כניסה</a>
           <a *ngIf="registered"  class="navbar-text"  (click)="this.signSvc.SignOut()">יציאה</a>
