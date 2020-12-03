@@ -4,7 +4,8 @@ import { HttpClient, HttpEventType, HttpErrorResponse } from '@angular/common/ht
 import { Router, ActivatedRoute } from '@angular/router';
 // import { AngularFireAuth } from '@angular/fire/auth';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
+import { LoadimageService } from './loadimage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +42,9 @@ export class SignService {
 
 	  private subscriber: any;
 
-  constructor(private http:HttpClient, private router:Router, private route:ActivatedRoute,
-    // public afAuth: AngularFireAuth,
+  constructor(private http:HttpClient,
+     private router:Router, private route:ActivatedRoute,
+    private loadImage:LoadimageService,
     public ngZone: NgZone) { 
 
     this.api_url = 'http://localhost:3000/users/'
@@ -91,7 +93,7 @@ export class SignService {
         
   }
 
-  registerUser(forminValid,formValue)
+  registerUser(forminValid,formValue,file)
   {
 
     console.log(forminValid,formValue);
@@ -105,68 +107,58 @@ export class SignService {
   	}
   	else
   	{
+      this.user_game =  JSON.parse(localStorage.getItem('user'));
+      if (file.data!= null) {
+        this.loadImage.uploadFile(file).pipe(
+
+          map((event) => {
+                
+            return  event= Object.assign(
+              formValue,
+              {photo_url:event.filename}
+              );
+                
+              }),
+          tap(event=> this.sendPost(event)),
+  
+        ).subscribe(res=>{
+         console.log(res)
+          });
+      }else{
+
+       const event= Object.assign(
+          formValue,
+          {user_email:this.user_game.email},
+          {photo_url:"TL18TV7R6-UL1DXHD6Z-gdf2e191070b-512e8fa55bc-53f9-4296-865c-183d38e8a6f3.png"},
+          );
+          this.sendPost(event)
+
+      }
       let data: any = Object.assign(
         formValue,
         {pothoUrl:""},
         {scores:[]}
         );
+	}
+  }
 
-  		this.http.post('http://localhost:3000/users', data).subscribe((res:any) => {
+  sendPost(data){
 
-        console.log(res);
+    this.http.post('http://localhost:3000/users', data).subscribe((res:any) => {
+      console.log(res);
+      
         this.user_game = new UserInfoModel(res);
-            localStorage.setItem('user', JSON.stringify(this.user_game));
-            
+          localStorage.setItem('user', JSON.stringify(this.user_game));
+          this.router.navigate(['card-user']);
 
-	      this.router.navigate(['card-user']);
-	    }, error =>
-	    {
-        this.serviceErrors = error.error.error
+}, error =>
+{
+  this.serviceErrors = error.error.error
         console.log(this.serviceErrors);
         // this.router.navigate(['card-user']);
 	    	return window.alert(`${this.serviceErrors}`);
-        });
+  });
 
-  		
-
-  	}
-  }
-
-  uploadFile(file) {
-    
-    const formData = new FormData();
-    const new_file = {uploadfile: file.data}
-    
-    formData.append('uploadfile', file.data);
-    file.inProgress = true;
-    console.log(formData,new_file);
-    this.uploadHeaderImage(formData)
-    // .pipe(
-    //   map((event) => {
-    //     switch (event.type) {
-    //       case HttpEventType.UploadProgress:
-    //         file.progress = Math.round(event.loaded * 100 / event.total);
-    //         break;
-    //       case HttpEventType.Response:
-    //         return event;
-    //     }
-    //   }),
-    //   catchError((error: HttpErrorResponse) => {
-    //     file.inProgress = false;
-    //     return of('Upload failed');
-    //   }))
-      .subscribe((res: any) => {
-        if(typeof (res) === 'object') {
-          this.user_game =  JSON.parse(localStorage.getItem('user'));
-          console.log(res);
-          
-          this.user_game.pothoUrl= res.filename;
-        }
-      })
-  }
-
-  uploadHeaderImage(new_file): Observable<any> {
-    return this.http.post('http://localhost:3000/games/upload' , new_file);
   }
 
   updateSum(up_sum,game_name){

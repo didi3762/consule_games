@@ -4,6 +4,7 @@ import { BehaviorSubject, of, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Game } from '../interfacees/game';
 import { debounceTime, distinctUntilChanged, switchMap, catchError, map, tap } from 'rxjs/operators';
+import { LoadimageService } from './loadimage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class GameService {
   showProgress = false;
   user_game
 
-  constructor(private http:HttpClient,private rout:Router) { 
+  constructor(private http:HttpClient,private rout:Router,private loadImage:LoadimageService,) { 
     this.api_url = 'http://localhost:3000/games/'
   }
 
@@ -35,7 +36,7 @@ export class GameService {
   	{
       this.user_game =  JSON.parse(localStorage.getItem('user'));
       if (file.data!= null) {
-        this.uploadFile(file).pipe(
+        this.loadImage.uploadFile(file).pipe(
 
           map((event) => {
                 
@@ -85,6 +86,9 @@ export class GameService {
 {
   this.serviceErrors = error.error.error
   console.log(this.serviceErrors);
+  if (this.serviceErrors=='Forbidden') {
+    return window.alert(`אין לך הרשאה`);
+  }
   // this.router.navigate(['card-user']);
   return window.alert(`${this.serviceErrors}`);
   });
@@ -92,45 +96,9 @@ export class GameService {
   }
 
 
-  uploadFile(file): Observable<any> {
-    
-    const formData = new FormData();
-    const new_file = {uploadfile: file.data}
-    
-    formData.append('uploadfile', file.data);
-    file.inProgress = true;
-    let pothoUrl = ''
-     return this.uploadHeaderImage(formData)
-    // .pipe(
-    // //   map((event) => {
-    // //     switch (event.type) {
-    // //       case HttpEventType.UploadProgress:
-    // //         file.progress = Math.round(event.loaded * 100 / event.total);
-    // //         break;
-    // //       case HttpEventType.Response:
-    // //         return event;
-    // //     }
-    // //   }),
-    //   catchError((error: HttpErrorResponse) => {
-    //     file.inProgress = false;
-    //     return of('Upload failed');
-    //   }))
-    //   .subscribe((res: any) => {
-    //     if(typeof (res) === 'object') {
-    //       this.user_game =  JSON.parse(localStorage.getItem('user'));
-    //       console.log(res);
-          
-    //       return  res;
-    //       console.log(pothoUrl);
-          
-    //     }
-    //   })
-      
-  }
+ 
 
-  uploadHeaderImage(new_file): Observable<any> {
-    return this.http.post('http://localhost:3000/games/upload' , new_file);
-  }
+ 
 
   getGames(){
     this.getImage()
@@ -166,9 +134,14 @@ export class GameService {
   }
 
   delate_game(game_id){
-    console.log(game_id);
+    this.user_game =  JSON.parse(localStorage.getItem('user'));
+    let user: any = Object.assign({ token :this.user_game['token']});
+    const token = this.user_game['token']
+    let params = new HttpParams();
+
+    params = params.append('token', String(token));
     
-      this.http.delete(this.api_url + game_id).subscribe(res=>{
+      this.http.delete(this.api_url + game_id,{params}).subscribe(res=>{
         console.log(res);
         this.getGames()
         
@@ -177,11 +150,11 @@ export class GameService {
 
   async search(value){
     this.searc_list.next(value);
-    this.getGamesSearc()
+    this.getGamesSearch()
   }
 
 
-  getGamesSearc() {
+  getGamesSearch() {
     const obsNoCharacters = of<Game[]>([]);
     this.games = this.searc_list
     this.games.subscribe(res=>{

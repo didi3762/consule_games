@@ -7,7 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { NgbModule, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,6 +37,7 @@ import { SnakeComponent } from './comps/games/snake/snake.component';
 import { CommonModule } from '@angular/common';
 import { GamesComponent } from './comps/admin/games/games.component';
 import { ListComponent } from './comps/admin/list/list.component';
+import { AuthInterceptor } from './shared/auth.interceptor';
 
 
 
@@ -79,7 +80,13 @@ import { ListComponent } from './comps/admin/list/list.component';
     // AngularFireModule.initializeApp(environment.firebase),
     ReactiveFormsModule, FormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi   : true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

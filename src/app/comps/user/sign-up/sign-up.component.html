@@ -61,6 +61,8 @@
                     <input type="submit" value="שמור" class="btn float-right login_btn">
                 </div>
             </form>
+            <input type="file" #fileUpload  name="fileUpload" accept="image/*" style="display: none;">
+            <button type="submit" (click)="loadFile()">הוסף תמונה</button>
         </div>
         <div class="card-footer">
           <div class="d-flex justify-content-center links">

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from 'src/app/servicees/auth.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SignService } from 'src/app/servicees/sign.service';
+import { File } from '../../../interfacees/file';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,6 +12,14 @@ import { SignService } from 'src/app/servicees/sign.service';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
+
+  @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef;
+
+  file: File = { 
+    data: null,
+    inProgress: false,
+    progress: 0
+  };
 
   registered = false;
 	submitted = false;
@@ -130,10 +139,23 @@ export class SignUpComponent implements OnInit {
         conf_password_control.errors != null));
   }
 
+  loadFile(){
+    const fileInput = this.fileUpload.nativeElement;
+    fileInput.click();
+    fileInput.onchange = () => {
+      this.file = {
+        data: fileInput.files[0],
+        inProgress: false,
+        progress: 0
+      };
+  }
+  
+}
+
   onSubmit(){
     
     this.submitted = true;
-    this.signSvc.registerUser(this.userForm.invalid,this.userForm.value)
+    this.signSvc.registerUser(this.userForm.invalid,this.userForm.value,this.file)
         this.registered = true;
   
   }

@@ -16,11 +16,9 @@ export class GamesComponent implements OnInit {
     this.gameSvc.getGames();
     this.game_list_ob = this.gameSvc.games_list
     this.game_list_ob.subscribe(res=>{
-      console.log(res);
       
       this.game_list = res;
 
-      console.log(this.game_list);
       
       
       

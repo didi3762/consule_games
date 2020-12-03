@@ -23,10 +23,10 @@ import { ListComponent } from './comps/admin/list/list.component';
 const routes: Routes = [
   {path:'home' , component:HomeComponent},
   // {path:'home/game-page' , component:GameComponent},
-  {path:'html_url' , component:MainTrivyaComponent , canActivate: [AuthGuard]},
+  {path:'trivya' , component:MainTrivyaComponent , canActivate: [AuthGuard]},
   {path:'home/users' , component:UsersListComponent},
   {path:'admin' , component:AdminComponent,
-  //  canActivate: [AuthGuard,AdminGuard],
+   canActivate: [AuthGuard,AdminGuard],
   children: [
     {path:'admin/create' , component:CreateComponent},
     {path:'games' , component:GamesComponent},

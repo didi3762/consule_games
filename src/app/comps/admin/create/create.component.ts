@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { GameService } from 'src/app/servicees/game.service';
-import { File } from 'src/app/interfacees/file';
-import { SignService } from 'src/app/servicees/sign.service';
+import { File } from '../../../interfacees/file';
+import { SignService } from '../../../servicees/sign.service';
+import { LoadimageService } from '../../../servicees/loadimage.service';
 
 @Component({
   selector: 'app-create',
@@ -32,7 +33,10 @@ export class CreateComponent implements OnInit {
     html_url_erros:'',
   }
 
-  constructor(private formBuilder: FormBuilder,private gameSvc:GameService,private signSvc:SignService) {
+  constructor(private formBuilder: FormBuilder,
+    private gameSvc:GameService,
+    
+    private signSvc:SignService) {
         
    }
 
@@ -97,7 +101,6 @@ export class CreateComponent implements OnInit {
         progress: 0
       };
   }
-  console.log(this.file);
   
 }
 

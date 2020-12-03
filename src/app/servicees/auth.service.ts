@@ -104,6 +104,11 @@ export class AuthService {
     // })
   }
 
+  public getToken(){
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user? user['token'] as string: " "
+  }
+
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));

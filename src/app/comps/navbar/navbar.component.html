@@ -17,8 +17,8 @@
           <li class="nav-item">
             <a class="nav-link" href="/socket">חדר משחקים</a>
           </li>
-          <li class="nav-item">
-           <!-- *ngIf='corrent_user.role=="admin"' -->
+          <li class="nav-item"
+           *ngIf='corrent_user.role=="admin"'>
             
             <a class="nav-link" href="admin">ממשק ניהול</a>
           </li>
@@ -34,7 +34,7 @@
 
       <ul class="nav-item avatar dropdown navbar-nav flex-column">
         <a  type="button" class="pp dropdown-toggle" data-toggle="dropdown">
-            <img src="assets/img/TL18TV7R6-UL1DXHD6Z-gdf2e191070b-512.png" alt="placeholder" class="img-fluid rounded-circle z-depth-0"></a>
+            <img src="http://localhost:3000/users/get_upload/{{corrent_user.photo_url}}" alt="placeholder" class="img-fluid rounded-circle z-depth-0"></a>
           
           <div class="dropdown-menu dropdown-menu-right" role="menu">
             
