@@ -1,8 +1,11 @@
 {
+   "port" : "process.env.PORT || 3000",
     "/api": {
-      "target": "http://localhost:8080",
+      "target": "process.env.PORT || 3000",
       "secure": false,
       "logLevel": "debug",
       "changeOrigin": true
     }
   }
+
+  
