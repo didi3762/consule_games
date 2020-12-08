@@ -11,6 +11,7 @@ export class ListComponent implements OnInit {
 
   game_list_ob
   users_list
+  my_api='http://localhost:3000/users/get_upload/'
 
   constructor(public signSvc:SignService) { }
 

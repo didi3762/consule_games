@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import  * as io from "socket.io-client";
+import { SignService } from './sign.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class SocketioService {
 
   messages: Subject<any>;
 
-  constructor() { 
+  constructor(private signSvc:SignService) { 
     // this.messages = <Subject<any>>this
     //   .connect()
       // .map((response: any): any => {
@@ -38,6 +39,8 @@ export class SocketioService {
     //  this.receivedMessage(message)
     })
    }
+
+  
 
   async move( direction: string){
     // console.log(this.socket.emit());

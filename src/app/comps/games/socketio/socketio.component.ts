@@ -8,7 +8,6 @@ import { SocketioService } from '../../../servicees/socketio.service';
 import useSocket from 'use-socket.io-client';
 import { Vue } from 'src/app/interfacees/file';
 import { SignService } from '../../../servicees/sign.service';
-// const io = require("socket.io-client");
 
 @Component({
   selector: 'app-socketio',
@@ -17,49 +16,128 @@ import { SignService } from '../../../servicees/sign.service';
 })
 export class SocketioComponent implements OnInit {
 
+  @ViewChild('game') 
+  private gameCanvas: ElementRef;
+
+  private context:any;
+
+  my_api='http://localhost:3000/users/get_upload/'
+
+  public socket = {chat: null , alerts:null}
+
+  activeRoom = 'general';
+  // isMemberOfActiveRoom
+  alerts = []
+  username
+  messages = {
+    general: [],
+    typescript: [],
+    nestjs: []
+  }
+  rooms = {
+    general: false,
+    typescript: false,
+    nestjs: false
+  }
+  text
+
+  usersListOb:Observable<any>;
+  usersList:any;
+  private subscriber: any;
+  is_join_ob:Observable<any>;
+  curennt_user
+  
+
 
   constructor(private signSvc:SignService,private socketsvc:SocketioService) { }
 
   deck
-  public socket: any;
+  
 
   ngOnInit(): void {
+    this.created()
+    this.signSvc.getUsers();
+    this.usersListOb = this.signSvc.users_list
+    this.usersListOb.subscribe(res=>{
+      this.usersList = res;
+      });
+
+      this.curennt_user = JSON.parse(localStorage.getItem('user'));
+    if (this.curennt_user) {
+      this.socket.chat.emit('joinRoom' ,this.curennt_user.email)
+      this.activeRoom = this.curennt_user.email;
+      this.rooms[this.activeRoom] = true;
+      this.messages[this.activeRoom] = []
+     }
+    
+   
+    
 
     
     this.deck = this.createDefoult()
 
-    this.created()
+    
     this.createRandom()
     
     this.isGuarding = true;
 
    
 
-    this.socket.on('start_client', (key) => {
-      console.log(key);
+    // this.socket.on('start_client', (key) => {
+    //   console.log(key);
       
-       this.start()
-    })
+    //    this.start()
+    // })
 
-    this.socket.on('sendcard', (_card) => {
-      console.log(_card);
+    // this.socket.on('sendcard', (_card) => {
+    //   console.log(_card);
       
-       this.check(_card)
-    })
+    //    this.check(_card)
+    // })
     
     
   }
 
-  created() {
-    this.socket = io('http://localhost:3001')
-    this.socket.on('create_dic', (key) => {
-      console.log(key);
-      
-      this.deck = this.createDeck(key)
+ 
 
-      console.log(this.deck);
+
+
+  created() {
+    // this.username = prompt('Enter your username')
+    this.socket.chat = io('http://localhost:3001')
+    this.socket.chat.on('chatToClient', (msg) => {
+      console.log(msg);
+      
+      this.receiveChattMessage(msg)
+    })
+    this.socket.chat.on('coonect', () => {
+        this.toggleRoomMembership()
+    })
+    this.socket.chat.on('joinedRoom',(room) => {
+      
+       this.rooms[room] = true;
+       console.log(room,this.rooms);
+       
+    })
+    this.socket.chat.on('leftRoom',(room) => {
+       this.rooms[room] = false;
+    })
+    this.socket.alerts = io('http://localhost:3001/alert')
+    this.socket.alerts.on('alertToClient', (msg) => {
+         this.receiveAlertMessage(msg)
     })
    }
+
+  // created() {
+  //   this.socket = io('http://localhost:3001')
+  //   this.socket.on('create_dic', (key) => {
+  //     console.log(key);
+      
+  //     this.deck = this.createDeck(key)
+
+  //     console.log(this.deck);
+  //   })
+  //  }
 
   // constant variables 
  constants = {
@@ -70,6 +148,41 @@ export class SocketioComponent implements OnInit {
   getColumns : function() { return 6 },
   getNumMatches :function() { return (3 * 6) / 2 },
 };
+
+sendChatMessage(v){
+  console.log(v);
+  
+  if (this.isMemberOfActiveRoom()) {
+    this.socket.chat.emit('chatToServer', {sender:this.curennt_user.user_name, messages: v,room:this.activeRoom,photo_url:this.curennt_user.photo_url})
+    this.text = '';
+  }else{
+    alert('You must be a member of the active room to send messages!')
+  }
+}
+
+
+toggleRoomMembership(){
+  if (this.isMemberOfActiveRoom()) {
+     this.socket.chat.emit('leaveRoom' ,this.activeRoom)
+  }else{
+    this.socket.chat.emit('joinRoom' ,this.activeRoom)
+  }
+
+}
+
+receiveChattMessage(msg){
+  this.messages[msg.room].push(msg)
+}
+
+receiveAlertMessage(msg){
+    this.alerts.push(msg)
+}
+
+isMemberOfActiveRoom(){
+  console.log(this.rooms,this.activeRoom);
+  
+  return this.rooms[this.activeRoom]
+}
 
 // Global Variables
 
@@ -160,7 +273,7 @@ for (var n = 0; n < matches; n++) {
   this.removeByIndex(pool, randPool);
 }
 
-this.socket.emit('create_ansowers', answers) 
+// this.socket.emit('create_ansowers', answers) 
 return answers;
 } 
 
@@ -223,7 +336,7 @@ numPairs = 0;
 
 emit_card(card){
 
-  this.socket.emit('card',card)
+  // this.socket.emit('card',card)
 
 }
 
@@ -258,7 +371,7 @@ check(_card) {
 } 
 
 emit_start(){
-  this.socket.emit('start')
+  // this.socket.emit('start')
 }
 
 start(){

@@ -34,7 +34,7 @@
 
       <ul class="nav-item avatar dropdown navbar-nav flex-column">
         <a  type="button" class="pp dropdown-toggle" data-toggle="dropdown">
-            <img src="http://localhost:3000/users/get_upload/{{corrent_user.photo_url}}" alt="placeholder" class="img-fluid rounded-circle z-depth-0"></a>
+            <img src="{{(corrent_user.photo_url) ? this.api_url+corrent_user.photo_url: this.api_url+'הורדה803c6222-bb97-4002-8798-cb1cc943aa22.jpg'}}" alt="אין תמונה" class="img-fluid rounded-circle z-depth-0"></a>
           
           <div class="dropdown-menu dropdown-menu-right" role="menu">
             

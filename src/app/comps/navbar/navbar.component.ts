@@ -12,7 +12,7 @@ import { GameService } from '../../servicees/game.service';
 export class NavbarComponent implements OnInit {
 
   
-
+  api_url='http://localhost:3000/users/get_upload/'
   navbarOpen = false;
   registeredOb:Observable<any>;
   registered;

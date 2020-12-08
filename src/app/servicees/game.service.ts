@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, of, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Game } from '../interfacees/game';
@@ -19,14 +19,17 @@ export class GameService {
   games: Observable<any>;
   showProgress = false;
   user_game
+  headers:HttpHeaders
 
   constructor(private http:HttpClient,private rout:Router,private loadImage:LoadimageService,) { 
     this.api_url = 'http://localhost:3000/games/'
+     
   }
 
   async create_game(forminValid,formValue,file)
   {
-
+    this.user_game =  JSON.parse(localStorage.getItem('user'));
+    const token = this.user_game['token']
 
   	if(forminValid == true)
   	{
@@ -34,7 +37,6 @@ export class GameService {
   	}
   	else
   	{
-      this.user_game =  JSON.parse(localStorage.getItem('user'));
       if (file.data!= null) {
         this.loadImage.uploadFile(file).pipe(
 
@@ -47,11 +49,9 @@ export class GameService {
               );
                 
               }),
-          tap(event=> this.sendPost(event)),
+          tap(event=> this.sendPost(event,token)),
   
-        ).subscribe(res=>{
-         console.log(res)
-          });
+        ).subscribe();
       }else{
 
        const event= Object.assign(
@@ -59,38 +59,25 @@ export class GameService {
           {user_email:this.user_game.email},
           {photo_url:"dafult42c1bd30-2828-4d33-8431-4578c66205c6.jpg"},
           );
-          this.sendPost(event)
+          this.sendPost(event,token)
 
-      }
-      
-      console.log(forminValid,formValue,file);
-      
-
-  		
-
-  		
-
-  	}
+      }	}
   }
 
-  sendPost(data){
-
-    this.http.post(this.api_url, data).subscribe((res:any) => {
-
-        console.log(data);
-        
-      this.getGames();
+  sendPost(data,auth_token){
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'authorization': `Bearer ${auth_token}`
+    })
+    this.http.post(this.api_url, data,{ headers: this.headers }).subscribe((res:any) => {
+     this.getGames();
       this.rout.navigate(['admin/games'])
 
 }, error =>
 {
-  this.serviceErrors = error.error.error
+  this.serviceErrors = error.error
   console.log(this.serviceErrors);
-  if (this.serviceErrors=='Forbidden') {
-    return window.alert(`אין לך הרשאה`);
-  }
-  // this.router.navigate(['card-user']);
-  return window.alert(`${this.serviceErrors}`);
+  return window.alert(`${this.serviceErrors.message}`);
   });
 
   }
@@ -104,11 +91,7 @@ export class GameService {
     this.getImage()
      this.user_game =  JSON.parse(localStorage.getItem('user'));
       this.http.get(this.api_url).subscribe(res=>{
-    
-    
-          console.log(res);
-          
-             this.games_list.next(res)
+         this.games_list.next(res)
            },
            error => {
             return window.confirm(`${error.message}`);
@@ -122,10 +105,6 @@ export class GameService {
      console.log(options);
      
       this.http.get(this.api_url+'search', {params: options}).subscribe(res=>{
-    
-    
-          console.log(res);
-          
              this.games_list.next(res)
            },
            error => {
@@ -136,16 +115,21 @@ export class GameService {
   delate_game(game_id){
     this.user_game =  JSON.parse(localStorage.getItem('user'));
     let user: any = Object.assign({ token :this.user_game['token']});
-    const token = this.user_game['token']
-    let params = new HttpParams();
-
-    params = params.append('token', String(token));
+    const auth_token = this.user_game['token']
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'authorization': `Bearer ${auth_token}`
+    })
     
-      this.http.delete(this.api_url + game_id,{params}).subscribe(res=>{
+      this.http.delete(this.api_url + game_id,{ headers: this.headers }).subscribe(res=>{
         console.log(res);
         this.getGames()
         
-      })
+      }, error =>
+      {
+        this.serviceErrors = error.error
+        return window.alert(`${this.serviceErrors.message}`);
+        })
   }
 
   async search(value){

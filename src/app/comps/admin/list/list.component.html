@@ -17,7 +17,10 @@
             <td>{{user.sum_score}}</td>
             <td>{{user.sum_score}}</td>
             <td>{{user.sum_score}}</td>
-            <td><img src="http://localhost:3000/games/image/image(7)cdf820b9-fdbd-4171-8a0b-d3e6de3cca8f.png" alt=""></td>
+            <td><div class="img_cont">
+                <img src="{{(!user.photo_url) ? my_api+'הורדה803c6222-bb97-4002-8798-cb1cc943aa22.jpg': my_api + user.photo_url}}" class="img-fluid mx-auto d-block rounded-circle user_img">
+                <span class="online_icon"></span>
+            </div></td>
         </tr>
     </table>
 </div>
