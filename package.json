@@ -2,12 +2,17 @@
   "name": "gameproj",
   "version": "0.0.0",
   "scripts": {
+    "heroku-postbuild": "ng build --pord",
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
+  },
+  "engines": {
+    "node": "12.4.0",
+    "npm": "6.9.0"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +39,7 @@
     "font-awesome": "^4.7.0",
     "jQuery": "^1.7.4",
     "jquery": "^3.5.1",
+    "path": "^0.12.7",
     "popper": "^1.0.1",
     "popper.js": "^1.16.1",
     "rxjs": "~6.5.4",
