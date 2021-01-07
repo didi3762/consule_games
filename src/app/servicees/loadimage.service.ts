@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+// import * as AWS from 'aws-sdk/global';
+// import * as S3 from 'aws-sdk/clients/s3';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoadimageService {
+  api_url: string;
 
-  constructor(private http:HttpClient,) { }
+  constructor(private http:HttpClient,) {
+    this.api_url = environment.backendUrl
+   }
 
   uploadFile(file): Observable<any> {
     
@@ -45,7 +51,21 @@ export class LoadimageService {
       
   }
 
+  loatUserImage(file): Observable<any> {
+    
+    const formData = new FormData();
+    formData.append('file', file.data);
+    file.inProgress = true;
+    // this.http.post(this.api_url + 'uploadaws' , formData).subscribe(res=>console.log(res)
+    // )
+    return this.http.post(this.api_url + 'users/uploadaws' , formData)
+    
+      
+  }
+
+ 
+
   uploadHeaderImage(new_file): Observable<any> {
-    return this.http.post('http://localhost:3000/games/upload' , new_file);
+    return this.http.post(this.api_url + 'games/uploadaws' , new_file);
   }
 }

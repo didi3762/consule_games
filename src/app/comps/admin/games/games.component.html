@@ -17,7 +17,7 @@
             <td>lorem ipssum dollor dummy</td> -->
             <td>
                 <div class='cel_image'>
-                    <img src="http://localhost:3000/games/image/{{game.photo_url}}" alt="" class="img-fluid mx-auto d-block">
+                    <img src="{{api_url}}{{game.photo_url}}" alt="" class="img-fluid mx-auto d-block">
                 </div>
             </td>
             <td><button (click)='delate_item(game.id)'><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>

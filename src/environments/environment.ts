@@ -16,7 +16,7 @@ export const environment = {
       measurementId: "G-SWH9TLBSN9"
 
 },
-NPM_CONFIG_PRODUCTION : false
+    backendUrl : 'http://localhost:3000/'
 };
 
 /*

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 // import { auth } from 'firebase';
 import { UserInfoModel } from '../interfacees/user-info-model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class AuthService {
 
   userData:any;
+  api_url:string;
 
   constructor(
     private http: HttpClient,
@@ -19,6 +21,7 @@ export class AuthService {
     public router: Router,  
     public ngZone: NgZone // NgZone service to remove outside scope warning
   ) { 
+    this.api_url = environment.backendUrl
 
     // this.afAuth.authState.subscribe(user => {
     //   if (user) {
@@ -65,7 +68,7 @@ export class AuthService {
     console.log('try to google');
     const headers = new HttpHeaders();
     headers.set('Access', '*')
-    this.http.get('http://localhost:3000/auth/google').subscribe(res =>
+    this.http.get(this.api_url + 'auth/google').subscribe(res =>
       console.log(res)
       
     )

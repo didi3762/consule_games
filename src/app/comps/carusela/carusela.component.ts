@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbCarouselConfig, NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { GameService } from '../../servicees/game.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'carusela',
@@ -15,13 +16,15 @@ export class CaruselaComponent implements OnInit {
 
   game_list_ob:Observable<any>;
   game_list:any = [];
-  api_url:string = 'http://localhost:3000/games/image/';
+  api_url:string = '';
   num_arr:number
   game_list_duble=[]
 
   images = [700, 800, 807].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
   constructor(config: NgbCarouselConfig,public gameSvc:GameService) { 
+
+    this.api_url = environment.backendUrl + 'games/image/'
     
     config.interval = 20000;
     config.keyboard = true;

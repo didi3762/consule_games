@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Game } from '../interfacees/game';
 import { debounceTime, distinctUntilChanged, switchMap, catchError, map, tap } from 'rxjs/operators';
 import { LoadimageService } from './loadimage.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class GameService {
   headers:HttpHeaders
 
   constructor(private http:HttpClient,private rout:Router,private loadImage:LoadimageService,) { 
-    this.api_url = 'http://localhost:3000/games/'
+    this.api_url = environment.backendUrl + 'games/'
      
   }
 
@@ -122,7 +123,6 @@ export class GameService {
     })
     
       this.http.delete(this.api_url + game_id,{ headers: this.headers }).subscribe(res=>{
-        console.log(res);
         this.getGames()
         
       }, error =>

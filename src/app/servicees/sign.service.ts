@@ -8,6 +8,7 @@ import { map, catchError, tap } from 'rxjs/operators';
 import { LoadimageService } from './loadimage.service';
 import { SocketioService } from './socketio.service';
 import  * as io from "socket.io-client";
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -53,7 +54,7 @@ export class SignService {
     private loadImage:LoadimageService,
     public ngZone: NgZone) { 
 
-    this.api_url = 'http://localhost:3000/users/'
+      this.api_url = environment.backendUrl + 'users/'
     const user = JSON.parse(localStorage.getItem('user'));
     if (user!=null) {
       this.registered = true;
@@ -77,7 +78,6 @@ export class SignService {
         const user = JSON.parse(localStorage.getItem('user'));
         this.user_game_bh.next(user)
         this.createuser()
-        console.log(user.email);
         
         this.socket.emit('joinRoom' ,user.email)
          
@@ -146,8 +146,8 @@ export class SignService {
   	{
       this.user_game =  JSON.parse(localStorage.getItem('user'));
       if (file.data!= null) {
-        this.loadImage.uploadFile(file).pipe(
-
+        this.loadImage.loatUserImage(file).pipe(
+          tap(res => console.log(res)),
           map((event) => {
                 
             return  event= Object.assign(
@@ -176,8 +176,7 @@ export class SignService {
 
   sendPost(data){
 
-    this.http.post('http://localhost:3000/users', data).subscribe((res:any) => {
-      console.log(res);
+    this.http.post(this.api_url, data).subscribe((res:any) => {
       
         this.user_game = new UserInfoModel(res);
         this.registered= true;

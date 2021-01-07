@@ -2,6 +2,10 @@
 @import "assets/css/font-awesome.min.css";
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
+body{
+    direction: rtl;
+}
+
 /* @import '~jquery/src/jquery'; */
  /* //for bootstrap.min.js */
 /* //bootstrap-theme file for bootstrap 3 only */

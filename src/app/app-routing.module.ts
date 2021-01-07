@@ -22,7 +22,6 @@ import { ListComponent } from './comps/admin/list/list.component';
 
 const routes: Routes = [
   {path:'home' , component:HomeComponent},
-  // {path:'home/game-page' , component:GameComponent},
   {path:'trivya' , component:MainTrivyaComponent , canActivate: [AuthGuard]},
   {path:'home/users' , component:UsersListComponent},
   {path:'admin' , component:AdminComponent,
@@ -33,26 +32,22 @@ const routes: Routes = [
     {path:'users' , component:ListComponent},
   ]},
   {path:'sign' , component:SignComponent
-  //  ,canActivate: [SecureInnerPagesGuard]
   },
-  // { path: 'inputuser', component: InputUserComponent},
   {path: 'tetris', component: TetrisComponent,canActivate: [AuthGuard]},
   {path: 'memory', component: MemoryGameComponent,canActivate: [AuthGuard]},
   {path: 'snake', component: SnakeComponent,canActivate: [AuthGuard]},
   {path:'card-user' , component:CardUserComponent,canActivate: [AuthGuard] },
   {path:'home/suduko' , component:SudokuCellComponent,canActivate: [AuthGuard]},
-  {path:'socket' , component:SocketioComponent,canActivate: [AuthGuard]},
+  {path:'socket' , component:SocketioComponent,
+  canActivate: [AuthGuard],
+  children: [
+    {path:'memory' , component:MemoryGameComponent},
+    {path:'games' , component:GamesComponent},
+    {path:'users' , component:ListComponent},
+  ]},
   { path: 'register-user', component: SignUpComponent 
-  // , canActivate: [SecureInnerPagesGuard]
 },
-
-
-  // { path: 'dashboard', component: DashboardComponent
-  //  , canActivate: [AuthGuard] 
-  // },
-  // { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] },
-  // { path: 'verify-email-address', component: VerifyEmailComponent, canActivate: [SecureInnerPagesGuard] },
-  { path:'',          redirectTo:'home', pathMatch: 'full'},
+ { path:'',          redirectTo:'home', pathMatch: 'full'},
   { path:'**',        redirectTo:'home', pathMatch: 'full'}
 ];
 

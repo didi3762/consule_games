@@ -2,10 +2,10 @@
     <div class="card">
     <div class="box">
         <div class="img">
-            <img src="{{(user.pothoUrl) ? user.pothoUrl : 'assets/img/TL18TV7R6-UL1DXHD6Z-gdf2e191070b-512.png'}}">
+            <img src="{{(user.photo_url) ? 'https://consulegame.s3.eu-west-2.amazonaws.com/'+user.photo_url: 'assets/img/TL18TV7R6-UL1DXHD6Z-gdf2e191070b-512.png'}}">
         </div>
         <h2>{{user.first_name}}<br><span class="navbar-text"><i class="fa fa-trophy"></i>{{user.sum_score}}</span></h2>
-        <h3>שיחקת ב: {{user.scores.length}} משחקים</h3>
+        <h3>שיחקת ב: {{user.scores}} משחקים</h3>
         <div class="row" *ngFor="let game of user.games"> <!-- E-mail -->
             <label class="col-xs-6 col-form-label">: {{game.name}}</label>
             <div class="col-xs-6">{{game.user_score}}</div>

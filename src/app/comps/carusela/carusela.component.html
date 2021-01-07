@@ -31,7 +31,7 @@
         <figure *ngFor="let game of this.game_list?.slice(0, 6);"  class="col-md-4 d-md-inline-block" >
           <a routerLink="{{game.html_url}}"
           data-size="1600x1067">
-            <img src="{{api_url}}{{game.photo_url}}"
+            <img src="https://consulegame.s3.eu-west-2.amazonaws.com/{{game.photo_url}}"
               class="img-fluid">
           </a>
         </figure>
@@ -42,7 +42,7 @@
         <figure *ngFor="let game of this.game_list?.slice(6, 12); let k = index"  class="col-md-4 d-md-inline-block" >
           <a routerLink="/trivya"
           data-size="1600x1067">
-            <img src="{{api_url}}{{game.photo_url}}"
+            <img src="https://consulegame.s3.eu-west-2.amazonaws.com/{{game.photo_url}}"
               class="img-fluid">
           </a>
         </figure>

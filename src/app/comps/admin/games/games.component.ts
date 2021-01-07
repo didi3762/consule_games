@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../../../servicees/game.service';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-games',
@@ -11,6 +12,7 @@ export class GamesComponent implements OnInit {
 
   game_list_ob:Observable<any>;
   game_list:any;
+  api_url: string;
 
   constructor(public gameSvc:GameService) { 
     this.gameSvc.getGames();
@@ -26,6 +28,8 @@ export class GamesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.api_url = 'https://consulegame.s3.eu-west-2.amazonaws.com/'
     
   }
 

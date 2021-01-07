@@ -3,6 +3,7 @@ import { SignService } from 'src/app/servicees/sign.service';
 import { Observable, Subject, config } from 'rxjs';
 import { TrivyaSvcService } from 'src/app/servicees/trivya-svc.service';
 import { GameService } from '../../servicees/game.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'my-navbar',
@@ -12,7 +13,7 @@ import { GameService } from '../../servicees/game.service';
 export class NavbarComponent implements OnInit {
 
   
-  api_url='http://localhost:3000/users/get_upload/'
+  api_url=''
   navbarOpen = false;
   registeredOb:Observable<any>;
   registered;
@@ -27,7 +28,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(public signSvc:SignService,private gameSvc:GameService) {
 
-    
+    this.api_url = environment.backendUrl + 'users/get_upload/'
    }
 
   ngOnInit(): void {

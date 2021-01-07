@@ -76,6 +76,8 @@ ngOnInit() {
   this.w = this.canvas.width;
   this.h = this.canvas.height;
     // begin game
+    this.create_snake();
+    
       this.init();
   }
 
@@ -99,13 +101,15 @@ ngOnInit() {
   public startGame() {
     // this.score = 0;
     // this.lives = 3;
+     this.snake_array[0].x = 4 ;
+     this.snake_array[0].y = 4;
     this.isPaused = false;
     this.init();
   }
 
 public init() {
   this.d = "right"; //default direction
-  this.create_snake();
+  
   this.create_food(); //Now we can see the food particle
   //finally lets display the score
 
@@ -172,6 +176,8 @@ public paint() {
     if (nx == -1 || nx == this.w / this.cw || ny == -1 || ny == this.h / this.cw || this.check_collision(nx, ny, this.snake_array)) {
 
       if(this.lives === 0){
+        this.create_snake()
+        this.lives = 3;
         this.openMyDialog();
         this.pauseGame();
 
@@ -214,11 +220,12 @@ public paint() {
       this.paint_cell(this.food.x, this.food.y);
 
 
-      if (this.score % 10 == 0 && this.score >0) {
-        this.pauseGame()
-        this.openMyDialog()
-        this.signSvc.updateSum(this.score,this.snake_game.game_name)
-      }
+      // if (this.score % 10 == 10 && this.score >0) {
+      //   this.score++
+      //   this.pauseGame()
+      //   this.openMyDialog()
+      //   this.signSvc.updateSum(this.score,this.snake_game.game_name)
+      // }
   }
 }
 
